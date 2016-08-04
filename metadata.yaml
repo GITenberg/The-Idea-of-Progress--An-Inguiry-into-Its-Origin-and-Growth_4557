@@ -1,0 +1,28 @@
+_repo: The-Idea-of-Progress--An-Inguiry-into-Its-Origin-and-Growth_4557
+_version: 0.0.1
+creator:
+  author:
+    agent_name: Bury, J. B. (John Bagnell)
+    alias: Bury, John Bagnell
+    birthdate: 1861
+    deathdate: 1927
+    gutenberg_agent_id: '1506'
+    url: http://www.gutenberg.org/2009/agents/1506
+    wikipedia: http://en.wikipedia.org/wiki/J._B._Bury
+description: ''
+gutenberg_issued: '2003-10-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '4557'
+language: en
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcsh 'Progress'
+- !lcc 'CB'
+- !lcc 'HM'
+- !lcsh 'History -- Philosophy'
+- GITenberg
+title: 'The Idea of Progress: An Inguiry into Its Origin and Growth'
+url: http://www.gutenberg.org/ebooks/4557
