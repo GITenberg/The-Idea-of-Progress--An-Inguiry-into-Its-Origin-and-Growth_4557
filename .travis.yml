@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: tFnWN4dWFAUn3clGnQUR6yumD5ezXDXgd72haMky7ZN2UNZNKYgCMkBpzkiqciqNWBGMWAMu5aPIdGasZ6fR8okN4RQ9OWzsq3nQZfCYbnig+wTJ1VewDH+E6TKzBIGW4mVJHQ+Qv3LW1YAPOp3y6TuyJlAGvyXK4LA+cczddfsDM8I4fNapn2q26Lx51W9WJJYMaDWAyoPxNCndoCQtwm8lpLvA5zvuBEjWMFqGBlsSBfQhXCxCUDOKnPzV9wTe8DzLbuGhhGmkDxVDaYYic2geiNJeFynqdvvxGahe2a1BCGWIPok9Bbnh0cbxGagW1oAEt7eHgqqmfsgbS/FHlHdQ+HwpLdjPeAHYDWe5lWNgCOB8gGIjrTMRbXDZnrmXWCkKihupvisE2SnWl+5sLIP/8g+eMT2arfQy+evfGOloAGjcbAX0cvSvq7PIf5vTy6Vw1YJs7FA1jQWdqizIieeG9U/okoai80MnRLuvU36ekb0dbEFJDMbwSD6SfqO2llOL5W/tT9P4cLWU7WfgCKpZPpzigbotyzav9xQDxWINoLxPeIMWMoEvUfZogfnUGPZFcD4fLUJsN+PvP9s5hd8w8YN4q87UhPxXCDLF4PgED/5GpLamojoSkqh/7r9tYZN5kjU1uo3ljYIH0wypXhyii4JMVfchKDsglPF57Vg=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/The-Idea-of-Progress--An-Inguiry-into-Its-Origin-and-Growth_4557
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
